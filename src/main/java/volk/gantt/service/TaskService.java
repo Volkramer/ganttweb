@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import volk.gantt.exception.TaskNotFoundException;
 import volk.gantt.model.Task;
 import volk.gantt.repo.TaskRepo;
 
@@ -25,6 +26,11 @@ public class TaskService {
 
     public Task updateTask(Task task) {
         return taskRepo.save(task);
+    }
+
+    public Task findTaskByUd(Integer id) {
+        return taskRepo.findTaskById(id)
+                .orElseThrow(() -> new TaskNotFoundException("Task by id " + id + " was not found"));
     }
 
     public void deleteTask(Integer id) {
