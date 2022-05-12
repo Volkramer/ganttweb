@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import volk.gantt.exception.TaskNotFoundException;
 import volk.gantt.model.Task;
@@ -30,11 +31,12 @@ public class TaskService {
         return taskRepo.save(task);
     }
 
-    public Task findTaskByUd(Integer id) {
+    public Task findTaskById(Integer id) {
         return taskRepo.findTaskById(id)
                 .orElseThrow(() -> new TaskNotFoundException("Task by id " + id + " was not found"));
     }
 
+    @Transactional
     public void deleteTask(Integer id) {
         taskRepo.deleteTaskById(id);
     }

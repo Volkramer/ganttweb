@@ -35,7 +35,7 @@ public class TaskResource {
 
     @GetMapping("/find/{id}")
     public ResponseEntity<Task> getTaskById(@PathVariable("id") Integer id) {
-        Task task = taskService.findTaskByUd(id);
+        Task task = taskService.findTaskById(id);
         return new ResponseEntity<>(task, HttpStatus.OK);
     }
 

@@ -28,6 +28,10 @@ public class Task implements Serializable {
     private Date endAsap;
     private Date endLatest;
 
+    public Task() {
+        super();
+    }
+
     public Task(String name, int nbr, int duration) {
         this.name = name;
         this.nbr = nbr;
