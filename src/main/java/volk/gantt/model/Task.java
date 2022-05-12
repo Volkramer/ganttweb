@@ -1,7 +1,6 @@
 package volk.gantt.model;
 
 import java.io.Serializable;
-import java.time.Duration;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -18,11 +17,12 @@ public class Task implements Serializable {
     private int id;
     @Column(nullable = false, updatable = true)
     private String name;
+    @Column(nullable = false, updatable = true)
     private int nbr;
     @Column(nullable = false, updatable = true)
-    private Duration duration;
-    private Duration marginTotal;
-    private Duration marginFree;
+    private int duration;
+    private int marginTotal;
+    private int marginFree;
     private Date startAsap;
     private Date startLatest;
     private Date endAsap;
@@ -31,7 +31,7 @@ public class Task implements Serializable {
     public Task(String name, int nbr, int duration) {
         this.name = name;
         this.nbr = nbr;
-        this.duration = Duration.ofDays(duration);
+        this.duration = duration;
     }
 
     public int getId() {
@@ -58,27 +58,27 @@ public class Task implements Serializable {
         this.nbr = nbr;
     }
 
-    public Duration getDuration() {
+    public int getDuration() {
         return duration;
     }
 
-    public void setDuration(Duration duration) {
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 
-    public Duration getMarginTotal() {
+    public int getMarginTotal() {
         return marginTotal;
     }
 
-    public void setMarginTotal(Duration marginTotal) {
+    public void setMarginTotal(int marginTotal) {
         this.marginTotal = marginTotal;
     }
 
-    public Duration getMarginFree() {
+    public int getMarginFree() {
         return marginFree;
     }
 
-    public void setMarginFree(Duration marginFree) {
+    public void setMarginFree(int marginFree) {
         this.marginFree = marginFree;
     }
 

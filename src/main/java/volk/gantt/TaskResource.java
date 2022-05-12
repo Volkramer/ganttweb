@@ -2,6 +2,7 @@ package volk.gantt;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,6 +22,7 @@ import volk.gantt.service.TaskService;
 public class TaskResource {
     private final TaskService taskService;
 
+    @Autowired
     public TaskResource(TaskService taskService) {
         this.taskService = taskService;
     }

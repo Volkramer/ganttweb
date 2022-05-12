@@ -3,11 +3,13 @@ package volk.gantt.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import volk.gantt.exception.TaskNotFoundException;
 import volk.gantt.model.Task;
 import volk.gantt.repo.TaskRepo;
 
+@Service
 public class TaskService {
     private final TaskRepo taskRepo;
 
