@@ -9,11 +9,13 @@ import { environment } from '../environments/environment';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PerttComponent } from './pertt/pertt.component';
 import { GojsAngularModule } from 'gojs-angular';
+import { TaskComponent } from './task/task.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PerttComponent
+    PerttComponent,
+    TaskComponent
   ],
   imports: [
     BrowserModule,
