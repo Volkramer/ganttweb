@@ -37,7 +37,7 @@ public class LinkService {
     }
 
     @Transactional
-    public void deleteTask(Integer id) {
+    public void deleteLink(Integer id) {
         linkRepo.deleteById(id);
     }
 

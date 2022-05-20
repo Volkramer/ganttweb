@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import * as go from 'gojs';
 import { Task } from '../task/task';
-import { TaskService } from '../task/task.service';
+import { TaskService } from '../services/task.service';
 
 const $ = go.GraphObject.make;
 
@@ -46,9 +46,7 @@ export class PerttComponent implements OnInit {
 
   ngAfterViewInit(): void {
     this.taskService.getTasks().subscribe({
-      next: (data: Task[]) => {
-        this.populateDiagram(data);
-      },
+      next: (data: Task[]) => { this.populateDiagram(data) },
       error: (error: HttpErrorResponse) => { alert(error.message) }
     });
   }

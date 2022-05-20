@@ -14,9 +14,9 @@ public class Link implements Serializable {
     @GeneratedValue
     @Column(nullable = false, updatable = false)
     private int id;
-    @Column(nullable = false, updatable = true)
+    @Column(nullable = true, updatable = true)
     private int fromTask;
-    @Column(nullable = false, updatable = true)
+    @Column(nullable = true, updatable = true)
     private int toTask;
 
     public Link() {
