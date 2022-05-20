@@ -1,7 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import * as go from 'gojs';
-import { Observable, of, Subject, tap } from 'rxjs';
 import { Task } from '../task/task';
 import { TaskService } from '../task/task.service';
 
@@ -26,10 +25,23 @@ export class PerttComponent implements OnInit {
 
 
   constructor(private taskService: TaskService) {
+    this.state.diagramLinkData = [
+      { from: 1, to: 2 },
+      { from: 1, to: 3 },
+      { from: 2, to: 4 },
+      { from: 2, to: 5 },
+      { from: 3, to: 6 },
+      { from: 4, to: 6 },
+      { from: 5, to: 7 },
+      { from: 6, to: 8 },
+      { from: 7, to: 9 },
+      { from: 8, to: 9 }
+    ];
   }
 
   ngOnInit() {
     this.initDiagram();
+    this.addLegendDiagram();
   }
 
   ngAfterViewInit(): void {
@@ -56,7 +68,7 @@ export class PerttComponent implements OnInit {
 
   public populateDiagram(data: any[]): void {
     data.forEach(task => {
-      this.state.diagramNodeData.push({ key: task.nbr, text: task.name, lenght: task.duration, earlyStart: task.startAsap, lateFinish: task.endLatest, critical: false });
+      this.state.diagramNodeData.push({ key: task.id, text: task.name, lenght: task.duration, earlyStart: task.startAsap, lateFinish: task.endLatest, critical: false });
     });
     this.diagram.model = new go.GraphLinksModel(this.state.diagramNodeData, this.state.diagramLinkData);
   }
@@ -107,6 +119,39 @@ export class PerttComponent implements OnInit {
             { row: 2, column: 2, margin: 5, textAlign: "center" })
         )  // end Table Panel
       );
+  }
+
+  public addLegendDiagram() {
+    this.diagram.add(
+      $(go.Node, "Auto",
+        $(go.Shape, "Rectangle",  // the border
+          { fill: this.bluefill }),
+        $(go.Panel, "Table",
+          $(go.RowColumnDefinition, { column: 1, separatorStroke: "black" }),
+          $(go.RowColumnDefinition, { column: 2, separatorStroke: "black" }),
+          $(go.RowColumnDefinition, { row: 1, separatorStroke: "black", background: this.bluefill, coversSeparators: true }),
+          $(go.RowColumnDefinition, { row: 2, separatorStroke: "black" }),
+          $(go.TextBlock, "Early Start",
+            { row: 0, column: 0, margin: 5, textAlign: "center" }),
+          $(go.TextBlock, "Length",
+            { row: 0, column: 1, margin: 5, textAlign: "center" }),
+          $(go.TextBlock, "Early Finish",
+            { row: 0, column: 2, margin: 5, textAlign: "center" }),
+
+          $(go.TextBlock, "Activity Name",
+            {
+              row: 1, column: 0, columnSpan: 3, margin: 5,
+              textAlign: "center", font: "bold 14px sans-serif"
+            }),
+
+          $(go.TextBlock, "Late Start",
+            { row: 2, column: 0, margin: 5, textAlign: "center" }),
+          $(go.TextBlock, "Slack",
+            { row: 2, column: 1, margin: 5, textAlign: "center" }),
+          $(go.TextBlock, "Late Finish",
+            { row: 2, column: 2, margin: 5, textAlign: "center" })
+        )  // end Table Panel
+      ));
   }
 }
 
