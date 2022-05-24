@@ -1,8 +1,15 @@
 <div class="container" id="main-container">
-    <button type="button" class="btn btn-primary" (click)="onOpenModal(null, 'add')">
-  Créer une Tâche
-</button>
-
+    <div>
+        <button type="button" class="btn btn-primary" (click)="onOpenModal(null, 'add')">
+      Créer une Tâche
+    </button>
+        <button type="button" class="btn btn-primary" (click)="onOpenModal(null, 'edit')">
+      Modifier une Tâche
+    </button>
+        <button type="button" class="btn btn-primary" (click)="onOpenModal(null, 'delete')">
+      Supprimer une Tâche
+    </button>
+    </div>
     <!-- Add Task Model -->
     <div class="modal fade" id="addTaskModal" tabindex="-1" role="dialog" aria-labelledby="addTaskModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">

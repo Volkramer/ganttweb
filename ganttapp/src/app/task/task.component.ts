@@ -1,8 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Task } from './task';
+import { Task } from '../Object/task';
 import { TaskService } from '../services/task.service';
 import { NgForm } from '@angular/forms';
+import { DiagramService } from '../services/diagram.service';
 
 @Component({
   selector: 'app-task',
@@ -11,7 +12,7 @@ import { NgForm } from '@angular/forms';
 })
 export class TaskComponent implements OnInit {
 
-  constructor(private taskService: TaskService) { }
+  constructor(private taskService: TaskService, private diagramService: DiagramService) { }
 
   ngOnInit(): void {
 
@@ -28,6 +29,7 @@ export class TaskComponent implements OnInit {
     }
     if (mode === 'edit') {
       button.setAttribute('data-bs-target', '#updateTaskModal');
+
     }
     if (mode === 'delete') {
       button.setAttribute('data-bs-target', '#deleteTaskModal');
@@ -39,7 +41,13 @@ export class TaskComponent implements OnInit {
   public onAddTask(addForm: NgForm): void {
     document.getElementById('addTaskForm-closeButton')?.click();
     this.taskService.addTask(addForm.value).subscribe({
-      next: (data: Task) => { console.log(data) },
+      error: (error: HttpErrorResponse) => { alert(error.message) }
+    });
+  }
+
+  public getTask(): void {
+    this.taskService.getTasks().subscribe({
+      next: (data: Task[]) => { this.diagramService.populateDiagram(data) },
       error: (error: HttpErrorResponse) => { alert(error.message) }
     });
   }
