@@ -35,7 +35,7 @@ export class PerttComponent implements OnInit {
       { from: 5, to: 7 },
       { from: 6, to: 8 },
       { from: 7, to: 9 },
-      { from: 8, to: 9 }
+      { from: 8, to: 10 }
     ];
   }
 
@@ -45,28 +45,19 @@ export class PerttComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
+    this.getTask();
+  }
+
+  public getTask(): void {
     this.taskService.getTasks().subscribe({
       next: (data: Task[]) => { this.populateDiagram(data) },
       error: (error: HttpErrorResponse) => { alert(error.message) }
     });
   }
 
-  public getTasks(): any {
-    var tasks = new Array();
-    this.taskService.getTasks().subscribe({
-      next: (data: Task[]) => {
-        data.forEach(element => {
-          tasks.push(element);
-        });
-      },
-      error: (error: HttpErrorResponse) => { alert(error.message) }
-    });
-    return tasks;
-  }
-
   public populateDiagram(data: any[]): void {
     data.forEach(task => {
-      this.state.diagramNodeData.push({ key: task.id, text: task.name, lenght: task.duration, earlyStart: task.startAsap, lateFinish: task.endLatest, critical: false });
+      this.state.diagramNodeData.push({ key: task.nbr, text: task.name, lenght: task.duration, earlyStart: task.startAsap, lateFinish: task.endLatest, critical: false });
     });
     this.diagram.model = new go.GraphLinksModel(this.state.diagramNodeData, this.state.diagramLinkData);
   }

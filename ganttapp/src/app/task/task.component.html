@@ -1,1 +1,122 @@
-<p>task works!</p>
+<div class="container" id="main-container">
+    <button type="button" class="btn btn-primary" (click)="onOpenModal(null, 'add')">
+  Créer une Tâche
+</button>
+
+    <!-- Add Task Model -->
+    <div class="modal fade" id="addTaskModal" tabindex="-1" role="dialog" aria-labelledby="addTaskModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addTaskModalLabel">Créer une Tâche</h5>
+                </div>
+                <div class="modal-body">
+                    <form #addForm="ngForm" (ngSubmit)="onAddTask(addForm)">
+                        <div class="form-group .col-6 .col-sm-4">
+                            <label>Dénomination de la tâche</label>
+                            <input type="text" ngModel name="name" class="form-control" id="name" placeholder="Dénomination de la tâche" required>
+                        </div>
+                        <div class="form-group .col-6 .col-sm-4">
+                            <label>Durée</label>
+                            <input type="integer" ngModel name="duration" class="form-control" id="duration" placeholder="Durée" required>
+                        </div>
+                        <div class="form-group .col-6 .col-sm-4">
+                            <label>Tâche n°</label>
+                            <input type="integer" ngModel name="nbr" class="form-control" id="nbr" placeholder="Tâche n°" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="addTaskForm-closeButton" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Task Model -->
+    <div class="modal fade" id="updateTaskModal" tabindex="-1" role="dialog" aria-labelledby="updateTaskModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateTaskModalLabel">Modal title</h5>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group .col-6 .col-sm-4">
+                            <label for="inputTask">Nom de la tâche</label>
+                            <input type="text" class="form-control" id="inputTask">
+                        </div>
+                        <div class="form-group .col-6 .col-sm-4">
+                            <label for="inputDuration">Durée</label>
+                            <input type="integer" class="form-control" id="inputDuration">
+                        </div>
+                        <div class="form-group .col-6 .col-sm-4">
+                            <label for="inputNumber">Numéro de la tâche</label>
+                            <input type="integer" class="form-control" id="inputNumber">
+                        </div>
+                        <div class="form-group .col-6 .col-sm-4">
+                            <label for="inputFrom">Tâche précédente</label>
+                            <input type="integer" class="form-control" id="inputFrom">
+                        </div>
+                        <div class="form-group .col-6 .col-sm-4">
+                            <label for="inputTo">Tâche Suivante</label>
+                            <input type="integer" class="form-control" id="inputTo">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Task Model -->
+    <div class="modal fade" id="deleteTaskModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group .col-6 .col-sm-4">
+                                <label for="inputTask">Nom de la tâche</label>
+                                <input type="text" class="form-control" id="inputTask">
+                            </div>
+                            <div class="form-group .col-6 .col-sm-4">
+                                <label for="inputNumber">Numéro de la tâche</label>
+                                <input type="integer" class="form-control" id="inputNumber">
+                            </div>
+                            <div class="form-group .col-6 .col-sm-4">
+                                <label for="inputDuration">Durée</label>
+                                <input type="integer" class="form-control" id="inputDuration">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group .col-6 .col-sm-4">
+                                <label for="inputFrom">Tâche précédente</label>
+                                <input type="integer" class="form-control" id="inputFrom">
+                            </div>
+                            <div class="form-group .col-6 .col-sm-4">
+                                <label for="inputTo">Tâche Suivante</label>
+                                <input type="integer" class="form-control" id="inputTo">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Sign in</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
