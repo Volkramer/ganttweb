@@ -37,7 +37,7 @@ export class DiagramService {
     this.state.diagramNodeData = [];
     console.log(this.state.diagramNodeData);
     data.forEach(task => {
-      this.state.diagramNodeData.push({ key: task.nbr, name: task.name, lenght: task.duration, earlyStart: task.startAsap, lateFinish: task.endLatest, critical: false });
+      this.state.diagramNodeData.push({ key: task.id, nbr: task.nbr, name: task.name, lenght: task.duration, earlyStart: task.startAsap, lateFinish: task.endLatest, critical: false });
     });
     this.diagram.model = new go.GraphLinksModel(this.state.diagramNodeData, this.state.diagramLinkData);
   }
@@ -49,7 +49,7 @@ export class DiagramService {
     });
     this.diagram.nodeTemplate =
       $(go.Node, "Auto",
-        $(go.Shape, "Rectangle",  // the border
+        $(go.Shape, "RoundedRectangle",  // the border
           { fill: "white", strokeWidth: 2 },
           new go.Binding("fill", "critical", b => b ? this.pinkfill : this.bluefill),
           new go.Binding("stroke", "critical", b => b ? this.pink : this.blue)),

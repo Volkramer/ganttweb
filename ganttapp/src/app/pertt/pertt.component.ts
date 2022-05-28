@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import * as go from 'gojs';
-import { Task } from '../Object/task';
+import { Task } from '../object/task';
 import { DiagramService } from '../services/diagram.service';
 import { TaskService } from '../services/task.service';
 

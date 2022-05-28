@@ -3,7 +3,7 @@
         <button type="button" class="btn btn-primary" (click)="onOpenModal(null, 'add')">
       Créer une Tâche
     </button>
-        <button type="button" class="btn btn-primary" (click)="onOpenModal(null, 'edit')">
+        <button type="button" class="btn btn-primary" (click)="onEditButton()">
       Modifier une Tâche
     </button>
         <button type="button" class="btn btn-primary" (click)="onOpenModal(null, 'delete')">
@@ -42,39 +42,31 @@
     </div>
 
     <!-- Edit Task Model -->
-    <div class="modal fade" id="updateTaskModal" tabindex="-1" role="dialog" aria-labelledby="updateTaskModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editTaskModal" tabindex="-1" role="dialog" aria-labelledby="editTaskModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="updateTaskModalLabel">Modal title</h5>
+                    <h5 class="modal-title" id="editTaskModalLabel">Modifier une Tâche</h5>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form #editForm="ngForm">
                         <div class="form-group .col-6 .col-sm-4">
-                            <label for="inputTask">Nom de la tâche</label>
-                            <input type="text" class="form-control" id="inputTask">
+                            <label>Dénomination de la tâche</label>
+                            <input type="text" ngModel="{{task?.name}}" name="name" class="form-control" id="name" placeholder="Dénomination de la tâche" required>
                         </div>
                         <div class="form-group .col-6 .col-sm-4">
-                            <label for="inputDuration">Durée</label>
-                            <input type="integer" class="form-control" id="inputDuration">
+                            <label>Durée</label>
+                            <input type="integer" ngModel="{{task?.duration}}" name="duration" class="form-control" id="duration" placeholder="Durée" required>
                         </div>
                         <div class="form-group .col-6 .col-sm-4">
-                            <label for="inputNumber">Numéro de la tâche</label>
-                            <input type="integer" class="form-control" id="inputNumber">
+                            <label>Tâche n°</label>
+                            <input type="integer" ngModel="{{task?.nbr}}" name="nbr" class="form-control" id="nbr" placeholder="Tâche n°" required>
                         </div>
-                        <div class="form-group .col-6 .col-sm-4">
-                            <label for="inputFrom">Tâche précédente</label>
-                            <input type="integer" class="form-control" id="inputFrom">
-                        </div>
-                        <div class="form-group .col-6 .col-sm-4">
-                            <label for="inputTo">Tâche Suivante</label>
-                            <input type="integer" class="form-control" id="inputTo">
+                        <div class="modal-footer">
+                            <button type="button" id="editTaskForm-closeButton" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button (click)="onEditTask(editForm.value)" [disabled]="editForm.invalid" type="submit" class="btn btn-primary">Save changes</button>
                         </div>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
