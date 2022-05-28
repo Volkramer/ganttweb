@@ -61,9 +61,6 @@ export class TaskComponent implements OnInit {
   public onEditTask(editForm: NgForm): void {
     document.getElementById('editTaskForm-closeButton')?.click();
     const task: Task = Object.assign(this.task, editForm);
-    console.log('objet séléctionné: ', this.task);
-    console.log('nouvelle valeure: ', editForm);
-    console.log('objet modifié: ', task);
     this.taskService.updateTask(task).subscribe({
       error: (error: HttpErrorResponse) => { alert(error.message) }
     })
