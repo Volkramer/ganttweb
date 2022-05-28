@@ -34,6 +34,8 @@ export class TaskComponent implements OnInit {
       button.setAttribute('data-bs-target', '#editTaskModal');
     }
     if (mode === 'delete') {
+      if (task == undefined) { alert("Veuillez séléctionner une tâche à modifier"); return; }
+      this.task = task;
       button.setAttribute('data-bs-target', '#deleteTaskModal');
     }
     container?.appendChild(button);
@@ -51,6 +53,17 @@ export class TaskComponent implements OnInit {
     });
   }
 
+  public onDeleteButton(): void {
+    const node = this.diagramService.diagram.selection.first();
+    if (node == undefined) { alert("Veuillez séléctionner une tâche à supprimer"); return; }
+    this.taskService.getTaskById(node?.data.key).subscribe({
+      next: (data: Task) => {
+        this.onOpenModal(data, "delete");
+      },
+      error: (error: HttpErrorResponse) => (alert(error.message))
+    });
+  }
+
   public onAddTask(addForm: NgForm): void {
     document.getElementById('addTaskForm-closeButton')?.click();
     this.taskService.addTask(addForm.value).subscribe({
@@ -62,6 +75,13 @@ export class TaskComponent implements OnInit {
     document.getElementById('editTaskForm-closeButton')?.click();
     const task: Task = Object.assign(this.task, editForm);
     this.taskService.updateTask(task).subscribe({
+      error: (error: HttpErrorResponse) => { alert(error.message) }
+    })
+  }
+
+  public onDeleteTask(): void {
+    document.getElementById('deleteTask-closeButton')?.click();
+    this.taskService.deleteTask(this.task.id).subscribe({
       error: (error: HttpErrorResponse) => { alert(error.message) }
     })
   }

@@ -6,7 +6,7 @@
         <button type="button" class="btn btn-primary" (click)="onEditButton()">
       Modifier une Tâche
     </button>
-        <button type="button" class="btn btn-primary" (click)="onOpenModal(null, 'delete')">
+        <button type="button" class="btn btn-primary" (click)="onDeleteButton()">
       Supprimer une Tâche
     </button>
     </div>
@@ -73,47 +73,15 @@
     </div>
 
     <!-- Delete Task Model -->
-    <div class="modal fade" id="deleteTaskModal" tabindex="-1" role="dialog">
+    <div class="modal fade" id="deleteTaskModal" tabindex="-1" role="dialog" aria-labelledby="deleteTaskModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-row">
-                            <div class="form-group .col-6 .col-sm-4">
-                                <label for="inputTask">Nom de la tâche</label>
-                                <input type="text" class="form-control" id="inputTask">
-                            </div>
-                            <div class="form-group .col-6 .col-sm-4">
-                                <label for="inputNumber">Numéro de la tâche</label>
-                                <input type="integer" class="form-control" id="inputNumber">
-                            </div>
-                            <div class="form-group .col-6 .col-sm-4">
-                                <label for="inputDuration">Durée</label>
-                                <input type="integer" class="form-control" id="inputDuration">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group .col-6 .col-sm-4">
-                                <label for="inputFrom">Tâche précédente</label>
-                                <input type="integer" class="form-control" id="inputFrom">
-                            </div>
-                            <div class="form-group .col-6 .col-sm-4">
-                                <label for="inputTo">Tâche Suivante</label>
-                                <input type="integer" class="form-control" id="inputTo">
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Sign in</button>
-                    </form>
+                    <h5 class="modal-title">Confirmer la suppression?</h5>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="deleteTask-closeButton" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button (click)="onDeleteTask()" type="button" class="btn btn-primary">Supprimez</button>
                 </div>
             </div>
         </div>
