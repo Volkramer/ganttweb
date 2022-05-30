@@ -16,7 +16,12 @@ export class TaskComponent implements OnInit {
   constructor(private taskService: TaskService, private diagramService: DiagramService) { }
 
   ngOnInit(): void {
+    this.diagramService.initDiagram();
+    this.diagramService.addLegendDiagram();
+  }
 
+  ngAfterViewInit(): void {
+    this.getTasks();
   }
 
   public onOpenModal(task: Task | null, mode: string): void {
@@ -67,6 +72,7 @@ export class TaskComponent implements OnInit {
   public onAddTask(addForm: NgForm): void {
     document.getElementById('addTaskForm-closeButton')?.click();
     this.taskService.addTask(addForm.value).subscribe({
+      next: () => { this.getTasks() },
       error: (error: HttpErrorResponse) => { alert(error.message) }
     });
   }
@@ -75,6 +81,7 @@ export class TaskComponent implements OnInit {
     document.getElementById('editTaskForm-closeButton')?.click();
     const task: Task = Object.assign(this.task, editForm);
     this.taskService.updateTask(task).subscribe({
+      next: () => { this.getTasks() },
       error: (error: HttpErrorResponse) => { alert(error.message) }
     })
   }
@@ -82,13 +89,15 @@ export class TaskComponent implements OnInit {
   public onDeleteTask(): void {
     document.getElementById('deleteTask-closeButton')?.click();
     this.taskService.deleteTask(this.task.id).subscribe({
+      next: () => { this.getTasks() },
       error: (error: HttpErrorResponse) => { alert(error.message) }
     })
   }
 
   public getTask(id: number): void {
     this.taskService.getTaskById(id).subscribe({
-      next: (data: Task) => { }
+      next: (data: Task) => { this.task = data },
+      error: (error: HttpErrorResponse) => { alert(error.message) }
     })
   }
 

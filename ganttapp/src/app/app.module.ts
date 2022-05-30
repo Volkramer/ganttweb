@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { PerttComponent } from './pertt/pertt.component';
 import { GojsAngularModule } from 'gojs-angular';
 import { TaskComponent } from './task/task.component';
 import { FormsModule } from '@angular/forms';
@@ -14,7 +13,6 @@ import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
-    PerttComponent,
     TaskComponent
   ],
   imports: [

@@ -50,7 +50,11 @@ export class DiagramService {
     this.diagram.nodeTemplate =
       $(go.Node, "Auto",
         $(go.Shape, "RoundedRectangle",  // the border
-          { fill: "white", strokeWidth: 2 },
+          {
+            fill: "white", strokeWidth: 2, portId: "", cursor: "pointer",
+            fromLinkable: true, toLinkable: true,
+            fromLinkableDuplicates: true, toLinkableDuplicates: true
+          },
           new go.Binding("fill", "critical", b => b ? this.pinkfill : this.bluefill),
           new go.Binding("stroke", "critical", b => b ? this.pink : this.blue)),
         $(go.Panel, "Table",
