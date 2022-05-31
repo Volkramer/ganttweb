@@ -1,9 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { Task } from '../object/task';
-import { TaskService } from '../services/task.service';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { forkJoin } from 'rxjs';
+import { Link } from '../object/link';
+import { Task } from '../object/task';
 import { DiagramService } from '../services/diagram.service';
+import { LinkService } from '../services/link.service';
+import { TaskService } from '../services/task.service';
 
 @Component({
   selector: 'app-task',
@@ -12,12 +15,34 @@ import { DiagramService } from '../services/diagram.service';
 })
 export class TaskComponent implements OnInit {
   public task = <Task>{};
+  public link = <Link>{};
 
-  constructor(private taskService: TaskService, private diagramService: DiagramService) { }
+  constructor(private taskService: TaskService, private linkService: LinkService, private diagramService: DiagramService) { }
 
   ngOnInit(): void {
     this.diagramService.initDiagram();
     this.diagramService.addLegendDiagram();
+    this.diagramService.diagram.addDiagramListener("SelectionDeleting", (event) => {
+      const node = event.diagram.selection.first();
+      const key = node?.key;
+      if (typeof (key) === "number") {
+        this.taskService.deleteTask(key).subscribe({
+          next: () => { this.getTasks() },
+          error: (error: HttpErrorResponse) => { alert(error.message) }
+        });
+      }
+    });
+    this.diagramService.diagram.addDiagramListener("LinkDrawn", (event) => {
+      const linkDraw = event.diagram.selection.first();
+      this.link.fromTask = linkDraw?.data.from;
+      this.link.toTask = linkDraw?.data.to;
+      this.link
+      console.log(this.link);
+      this.linkService.addLink(this.link).subscribe({
+        next: () => { this.getTasks() },
+        error: (error: HttpErrorResponse) => { alert(error.message) }
+      })
+    });
   }
 
   ngAfterViewInit(): void {
@@ -102,9 +127,16 @@ export class TaskComponent implements OnInit {
   }
 
   public getTasks(): void {
-    this.taskService.getTasks().subscribe({
-      next: (data: Task[]) => { this.diagramService.populateDiagram(data) },
-      error: (error: HttpErrorResponse) => { alert(error.message) }
-    });
+    forkJoin({
+      dataNode: this.taskService.getTasks(),
+      dataLink: this.linkService.getLinks()
+    })
+      .subscribe({
+        next: ({ dataNode, dataLink }) => {
+          this.diagramService.populateDiagram(dataNode, dataLink)
+        },
+        error: (error: HttpErrorResponse) => { alert(error.message) }
+      });
+
   }
 }

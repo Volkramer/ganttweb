@@ -1,3 +1,4 @@
+import { keyframes } from '@angular/animations';
 import { Injectable } from '@angular/core';
 import * as go from 'gojs';
 
@@ -17,29 +18,21 @@ export class DiagramService {
     diagramLinkData: new Array(),
   }
   public diagramDivClassName: string = 'perttDiagram';
+  public nodesData = new Array();
+  public linksData = new Array();
 
-  constructor() {
-    this.state.diagramLinkData = [
-      { from: 1, to: 2 },
-      { from: 1, to: 3 },
-      { from: 2, to: 4 },
-      { from: 2, to: 5 },
-      { from: 3, to: 6 },
-      { from: 4, to: 6 },
-      { from: 5, to: 7 },
-      { from: 6, to: 8 },
-      { from: 7, to: 9 },
-      { from: 8, to: 10 }
-    ];
-  }
+  constructor() { }
 
-  public populateDiagram(data: any[]): void {
+  public populateDiagram(dataNodes: any[], dataLinks: any[]): void {
     this.state.diagramNodeData = [];
-    console.log(this.state.diagramNodeData);
-    data.forEach(task => {
-      this.state.diagramNodeData.push({ key: task.id, nbr: task.nbr, name: task.name, lenght: task.duration, earlyStart: task.startAsap, lateFinish: task.endLatest, critical: false });
+    this.state.diagramLinkData = [];
+    dataNodes.forEach(node => {
+      this.state.diagramNodeData.push({ key: node.id, nbr: node.nbr, name: node.name, lenght: node.duration, earlyStart: node.startAsap, lateFinish: node.endLatest, critical: false });
     });
-    this.diagram.model = new go.GraphLinksModel(this.state.diagramNodeData, this.state.diagramLinkData);
+    dataLinks.forEach(link => {
+      this.state.diagramLinkData.push({ key: link.id, from: link.fromTask, to: link.toTask });
+    })
+    this.diagram.model = new go.GraphLinksModel(this.state.diagramNodeData, this.state.diagramLinkData, { linkKeyProperty: "key" });
   }
 
   public initDiagram() {
