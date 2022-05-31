@@ -33,7 +33,15 @@ export class TaskComponent implements OnInit {
             });
           }
           if (this.diagramService.isNode(part)) {
-
+            const node = this.diagramService.diagram.findNodeForKey(part.key);
+            node?.findLinksConnected().each(link => {
+              if (typeof link.key === "number") {
+                this.linkService.deleteLink(link.key).subscribe({
+                  next: () => { this.getTasks() },
+                  error: (error: HttpErrorResponse) => { alert(error.message) }
+                })
+              }
+            });
             this.taskService.deleteTask(key).subscribe({
               next: () => { this.getTasks() },
               error: (error: HttpErrorResponse) => { alert(error.message) }
