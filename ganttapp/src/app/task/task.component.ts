@@ -23,14 +23,24 @@ export class TaskComponent implements OnInit {
     this.diagramService.initDiagram();
     this.diagramService.addLegendDiagram();
     this.diagramService.diagram.addDiagramListener("SelectionDeleting", (event) => {
-      const node = event.diagram.selection.first();
-      const key = node?.key;
-      if (typeof (key) === "number") {
-        this.taskService.deleteTask(key).subscribe({
-          next: () => { this.getTasks() },
-          error: (error: HttpErrorResponse) => { alert(error.message) }
-        });
-      }
+      event.diagram.selection.each((part) => {
+        const key = part.key
+        if (typeof key === "number") {
+          if (this.diagramService.isLink(part)) {
+            this.linkService.deleteLink(key).subscribe({
+              next: () => { this.getTasks() },
+              error: (error: HttpErrorResponse) => { alert(error.message) }
+            });
+          }
+          if (this.diagramService.isNode(part)) {
+
+            this.taskService.deleteTask(key).subscribe({
+              next: () => { this.getTasks() },
+              error: (error: HttpErrorResponse) => { alert(error.message) }
+            })
+          }
+        }
+      });
     });
     this.diagramService.diagram.addDiagramListener("LinkDrawn", (event) => {
       const linkDraw = event.diagram.selection.first();

@@ -23,6 +23,14 @@ export class DiagramService {
 
   constructor() { }
 
+  public isLink(part: any): boolean {
+    return part instanceof go.Link;
+  }
+
+  public isNode(part: any): boolean {
+    return part instanceof go.Node;
+  }
+
   public populateDiagram(dataNodes: any[], dataLinks: any[]): void {
     this.state.diagramNodeData = [];
     this.state.diagramLinkData = [];
@@ -46,7 +54,7 @@ export class DiagramService {
           {
             fill: "white", strokeWidth: 2, portId: "", cursor: "pointer",
             fromLinkable: true, toLinkable: true,
-            fromLinkableDuplicates: true, toLinkableDuplicates: true
+            fromLinkableDuplicates: false, toLinkableDuplicates: false
           },
           new go.Binding("fill", "critical", b => b ? this.pinkfill : this.bluefill),
           new go.Binding("stroke", "critical", b => b ? this.pink : this.blue)),
