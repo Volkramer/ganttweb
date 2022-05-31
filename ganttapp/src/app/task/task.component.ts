@@ -54,8 +54,6 @@ export class TaskComponent implements OnInit {
       const linkDraw = event.diagram.selection.first();
       this.link.fromTask = linkDraw?.data.from;
       this.link.toTask = linkDraw?.data.to;
-      this.link
-      console.log(this.link);
       this.linkService.addLink(this.link).subscribe({
         next: () => { this.getTasks() },
         error: (error: HttpErrorResponse) => { alert(error.message) }
