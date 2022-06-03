@@ -1,7 +1,6 @@
 package volk.gantt.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,10 +22,10 @@ public class Task implements Serializable {
     private int duration;
     private int marginTotal;
     private int marginFree;
-    private Date startAsap;
-    private Date startLatest;
-    private Date endAsap;
-    private Date endLatest;
+    private int startAsap;
+    private int startLatest;
+    private int endAsap;
+    private int endLatest;
 
     public Task() {
         super();
@@ -36,6 +35,7 @@ public class Task implements Serializable {
         this.name = name;
         this.nbr = nbr;
         this.duration = duration;
+        this.startAsap = 0;
     }
 
     public int getId() {
@@ -86,35 +86,35 @@ public class Task implements Serializable {
         this.marginFree = marginFree;
     }
 
-    public Date getStartAsap() {
+    public int getStartAsap() {
         return startAsap;
     }
 
-    public void setStartAsap(Date startAsap) {
+    public void setStartAsap(int startAsap) {
         this.startAsap = startAsap;
     }
 
-    public Date getStartLatest() {
+    public int getStartLatest() {
         return startLatest;
     }
 
-    public void setStartLatest(Date startLatest) {
+    public void setStartLatest(int startLatest) {
         this.startLatest = startLatest;
     }
 
-    public Date getEndAsap() {
+    public int getEndAsap() {
         return endAsap;
     }
 
-    public void setEndAsap(Date endAsap) {
+    public void setEndAsap(int endAsap) {
         this.endAsap = endAsap;
     }
 
-    public Date getEndLatest() {
+    public int getEndLatest() {
         return endLatest;
     }
 
-    public void setEndLatest(Date endLatest) {
+    public void setEndLatest(int endLatest) {
         this.endLatest = endLatest;
     }
 }

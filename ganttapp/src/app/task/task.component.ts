@@ -149,7 +149,8 @@ export class TaskComponent implements OnInit {
     })
       .subscribe({
         next: ({ dataNode, dataLink }) => {
-          this.diagramService.populateDiagram(dataNode, dataLink)
+          this.diagramService.populateDiagram(dataNode, dataLink);
+          console.log(dataNode);
         },
         error: (error: HttpErrorResponse) => { alert(error.message) }
       });
