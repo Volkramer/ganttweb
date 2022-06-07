@@ -34,7 +34,7 @@ export class DiagramService {
     this.state.diagramNodeData = [];
     this.state.diagramLinkData = [];
     dataNodes.forEach(node => {
-      this.state.diagramNodeData.push({ key: node.id, nbr: node.nbr, name: node.name, length: node.duration, earlyStart: node.startAsap, lateStart: node.startLatest, earlyFinish: node.endAsap, lateFinish: node.endLatest, critical: false });
+      this.state.diagramNodeData.push({ key: node.id, nbr: node.nbr, name: node.name, length: node.duration, earlyStart: node.startAsap, lateStart: node.startLatest, earlyFinish: node.endAsap, lateFinish: node.endLatest, slack: node.marginTotal, critical: false });
     });
     dataLinks.forEach(link => {
       this.state.diagramLinkData.push({ key: link.id, from: link.fromTask, to: link.toTask });
@@ -82,7 +82,7 @@ export class DiagramService {
             new go.Binding("text", "lateStart"),
             { row: 2, column: 0, margin: 5, textAlign: "center" }),
           $(go.TextBlock,  // slack
-            new go.Binding("text", ""),
+            new go.Binding("text", "slack"),
             { row: 2, column: 1, margin: 5, textAlign: "center" }),
           $(go.TextBlock, // lateFinish
             new go.Binding("text", "lateFinish"),

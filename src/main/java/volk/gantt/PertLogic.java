@@ -55,6 +55,7 @@ public class PertLogic {
                 task.setEndLatest(task.getEndAsap());
             }
             task.setStartLatest(this.calculateStartLatest(task));
+            task.setMarginTotal(this.calculateMarginT(task));
             this.taskService.updateTask(task);
         }
     }
@@ -90,6 +91,11 @@ public class PertLogic {
         } else {
             return endLatest;
         }
+    }
+
+    private int calculateMarginT(Task task) {
+        int marginT = task.getEndLatest() - task.getEndAsap();
+        return marginT;
     }
 
     private void resetTask(Task task) {
