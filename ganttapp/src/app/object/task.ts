@@ -5,8 +5,8 @@ export interface Task {
   duration: number,
   marginTotal: number,
   marginFree: number,
-  startAsap: Date,
-  startLatest: Date,
-  endAsap: Date,
-  endLatest: Date
+  startAsap: number,
+  startLatest: number,
+  endAsap: number,
+  endLatest: number
 }

@@ -1,6 +1,7 @@
 package volk.gantt;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,43 +22,83 @@ public class PertLogic {
     public PertLogic(TaskService taskService, LinkService linkService) {
         this.taskService = taskService;
         this.linkService = linkService;
-        this.links = linkService.findAllLink();
-        this.tasks = taskService.findAllTasks();
     }
 
     public void calculatePert() {
         List<Task> sortedTasks = new ArrayList<Task>();
-        List<Task> poolTasks = this.tasks;
-        List<Link> poolLinks = this.links;
+        List<Task> poolTasks = this.taskService.findAllTasks();
+        List<Link> poolLinks = this.linkService.findAllLinks();
 
-        resetTasks();
-        this.tasks = topologicalSortTasks(poolTasks, poolLinks, sortedTasks);
-        this.tasks.forEach((Task task) -> {
-            this.links.forEach((Link link)->{
-                if (link.getFromTask() == task.getId()){
-                    calcStartAsap(Task task, Link link)
-                }    
-            });
-        });
+        this.tasks = this.topologicalSortTasks(poolTasks, poolLinks, sortedTasks);
+        this.links = this.linkService.findAllLinks();
+        for (Task task : this.tasks) {
+            this.resetTask(task);
+            for (Link link : this.links) {
+                if (task.getId() == link.getToTask()) {
+                    Task fromTask = this.taskService.findTaskById(link.getFromTask());
+                    task.setStartAsap(this.calculateStartAsap(fromTask, task));
+                }
+            }
+            task.setEndAsap(calculateEndAsap(task));
+        }
+        Collections.reverse(this.tasks);
+        for (Task task : this.tasks) {
+            boolean flag = false;
+            for (Link link : links) {
+                if (task.getId() == link.getFromTask()) {
+                    flag = true;
+                    Task toTask = this.taskService.findTaskById(link.getToTask());
+                    task.setEndLatest(this.calculateEndLatest(task, toTask));
+                }
+            }
+            if (!flag) {
+                task.setEndLatest(task.getEndAsap());
+            }
+            task.setStartLatest(this.calculateStartLatest(task));
+            this.taskService.updateTask(task);
+        }
     }
 
-    private void calcStartAsap(Task task, Link link) {
-        task.setStartAsap(startAsap);
+    private void printTask(Task task) {
+        System.out.println("ID: " + task.getId() + ", NAME: " + task.getName() + ", START ASAP: " + task.getStartAsap()
+                + ", DURATION: " + task.getDuration() + ", END ASAP:" + task.getEndAsap());
     }
 
-    private void calcEndAsap(Task task) {
-        task.setEndAsap(task.getDuration() + task.getStartAsap());
+    private int calculateStartAsap(Task fromTask, Task task) {
+        int startAsap = fromTask.getEndAsap();
+        if (task.getStartAsap() > startAsap) {
+            return task.getStartAsap();
+        } else {
+            return startAsap;
+        }
     }
 
-    private void resetTasks() {
-        this.tasks.forEach((Task task) -> {
-            task.setMarginTotal(0);
-            task.setMarginFree(0);
-            task.setEndAsap(0);
-            task.setEndLatest(0);
-            task.setStartAsap(0);
-            task.setStartLatest(0);
-        });
+    private int calculateStartLatest(Task task) {
+        int startLatest = task.getEndLatest() - task.getDuration();
+        return startLatest;
+    }
+
+    private int calculateEndAsap(Task task) {
+        int endAsap = task.getDuration() + task.getStartAsap();
+        return endAsap;
+    }
+
+    private int calculateEndLatest(Task task, Task toTask) {
+        int endLatest = toTask.getStartLatest();
+        if ((task.getEndLatest() < endLatest) && task.getEndLatest() != 0) {
+            return task.getEndLatest();
+        } else {
+            return endLatest;
+        }
+    }
+
+    private void resetTask(Task task) {
+        task.setMarginTotal(0);
+        task.setMarginFree(0);
+        task.setEndAsap(0);
+        task.setEndLatest(0);
+        task.setStartAsap(0);
+        task.setStartLatest(0);
     }
 
     private List<Task> topologicalSortTasks(List<Task> poolTasks, List<Link> poolLinks, List<Task> sortedTasks) {
@@ -84,8 +125,8 @@ public class PertLogic {
             }
             poolTasks.removeAll(tasksToRemove);
             poolLinks.removeAll(linksToRemove);
-            // printTestSort(poolTasks, poolLinks, sortedTasks);
-            topologicalSortTasks(poolTasks, poolLinks, sortedTasks);
+            // this.printTestSort(poolTasks, poolLinks, sortedTasks);
+            this.topologicalSortTasks(poolTasks, poolLinks, sortedTasks);
         }
         return sortedTasks;
     }

@@ -23,7 +23,7 @@ public class LinkService {
         return linkRepo.save(link);
     }
 
-    public List<Link> findAllLink() {
+    public List<Link> findAllLinks() {
         return linkRepo.findAll();
     }
 

@@ -1,4 +1,3 @@
-import { keyframes } from '@angular/animations';
 import { Injectable } from '@angular/core';
 import * as go from 'gojs';
 
@@ -35,7 +34,7 @@ export class DiagramService {
     this.state.diagramNodeData = [];
     this.state.diagramLinkData = [];
     dataNodes.forEach(node => {
-      this.state.diagramNodeData.push({ key: node.id, nbr: node.nbr, name: node.name, length: node.duration, earlyStart: node.startAsap, earlyFinish: node.endAsap, lateFinish: node.endLatest, critical: false });
+      this.state.diagramNodeData.push({ key: node.id, nbr: node.nbr, name: node.name, length: node.duration, earlyStart: node.startAsap, lateStart: node.startLatest, earlyFinish: node.endAsap, lateFinish: node.endLatest, critical: false });
     });
     dataLinks.forEach(link => {
       this.state.diagramLinkData.push({ key: link.id, from: link.fromTask, to: link.toTask });
@@ -80,7 +79,7 @@ export class DiagramService {
               textAlign: "center", font: "bold 14px sans-serif"
             }),
           $(go.TextBlock,  // lateStart
-            new go.Binding("text", ""),
+            new go.Binding("text", "lateStart"),
             { row: 2, column: 0, margin: 5, textAlign: "center" }),
           $(go.TextBlock,  // slack
             new go.Binding("text", ""),

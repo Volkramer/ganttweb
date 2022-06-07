@@ -34,7 +34,7 @@ public class LinkResource {
 
     @GetMapping("/all")
     public ResponseEntity<List<Link>> getAllLinks() {
-        List<Link> links = linkService.findAllLink();
+        List<Link> links = linkService.findAllLinks();
         return new ResponseEntity<>(links, HttpStatus.OK);
     }
 
