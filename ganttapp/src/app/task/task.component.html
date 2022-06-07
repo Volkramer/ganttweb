@@ -1,0 +1,90 @@
+<div id="perttDiagram" style="border: solid 1px black; width:100%; height:400px"></div>
+<div class="container" id="main-container">
+    <div>
+        <button type="button" class="btn btn-primary" (click)="onOpenModal(null, 'add')">
+      Créer une Tâche
+    </button>
+        <button type="button" class="btn btn-primary" (click)="onEditButton()">
+      Modifier une Tâche
+    </button>
+        <button type="button" class="btn btn-primary" (click)="onDeleteButton()">
+      Supprimer une Tâche
+    </button>
+    </div>
+    <!-- Add Task Model -->
+    <div class="modal fade" id="addTaskModal" tabindex="-1" role="dialog" aria-labelledby="addTaskModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addTaskModalLabel">Créer une Tâche</h5>
+                </div>
+                <div class="modal-body">
+                    <form #addForm="ngForm" (ngSubmit)="onAddTask(addForm)">
+                        <div class="form-group .col-6 .col-sm-4">
+                            <label>Dénomination de la tâche</label>
+                            <input type="text" ngModel name="name" class="form-control" id="name" placeholder="Dénomination de la tâche" required>
+                        </div>
+                        <div class="form-group .col-6 .col-sm-4">
+                            <label>Durée</label>
+                            <input type="integer" ngModel name="duration" class="form-control" id="duration" placeholder="Durée" required>
+                        </div>
+                        <div class="form-group .col-6 .col-sm-4">
+                            <label>Tâche n°</label>
+                            <input type="integer" ngModel name="nbr" class="form-control" id="nbr" placeholder="Tâche n°" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="addTaskForm-closeButton" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Task Model -->
+    <div class="modal fade" id="editTaskModal" tabindex="-1" role="dialog" aria-labelledby="editTaskModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editTaskModalLabel">Modifier une Tâche</h5>
+                </div>
+                <div class="modal-body">
+                    <form #editForm="ngForm">
+                        <div class="form-group .col-6 .col-sm-4">
+                            <label>Dénomination de la tâche</label>
+                            <input type="text" ngModel="{{task?.name}}" name="name" class="form-control" id="name" placeholder="Dénomination de la tâche" required>
+                        </div>
+                        <div class="form-group .col-6 .col-sm-4">
+                            <label>Durée</label>
+                            <input type="integer" ngModel="{{task?.duration}}" name="duration" class="form-control" id="duration" placeholder="Durée" required>
+                        </div>
+                        <div class="form-group .col-6 .col-sm-4">
+                            <label>Tâche n°</label>
+                            <input type="integer" ngModel="{{task?.nbr}}" name="nbr" class="form-control" id="nbr" placeholder="Tâche n°" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="editTaskForm-closeButton" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button (click)="onEditTask(editForm.value)" [disabled]="editForm.invalid" type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Task Model -->
+    <div class="modal fade" id="deleteTaskModal" tabindex="-1" role="dialog" aria-labelledby="deleteTaskModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmer la suppression?</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="deleteTask-closeButton" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button (click)="onDeleteTask()" type="button" class="btn btn-primary">Supprimez</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
