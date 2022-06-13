@@ -1,7 +1,6 @@
 export interface Task {
   id: number,
   name: string,
-  nbr: number,
   duration: number,
   marginTotal: number,
   marginFree: number,

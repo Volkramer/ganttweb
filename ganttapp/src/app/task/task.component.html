@@ -28,10 +28,6 @@
                             <label>Durée</label>
                             <input type="integer" ngModel name="duration" class="form-control" id="duration" placeholder="Durée" required>
                         </div>
-                        <div class="form-group .col-6 .col-sm-4">
-                            <label>Tâche n°</label>
-                            <input type="integer" ngModel name="nbr" class="form-control" id="nbr" placeholder="Tâche n°" required>
-                        </div>
                         <div class="modal-footer">
                             <button type="button" id="addTaskForm-closeButton" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Save changes</button>
@@ -58,10 +54,6 @@
                         <div class="form-group .col-6 .col-sm-4">
                             <label>Durée</label>
                             <input type="integer" ngModel="{{task?.duration}}" name="duration" class="form-control" id="duration" placeholder="Durée" required>
-                        </div>
-                        <div class="form-group .col-6 .col-sm-4">
-                            <label>Tâche n°</label>
-                            <input type="integer" ngModel="{{task?.nbr}}" name="nbr" class="form-control" id="nbr" placeholder="Tâche n°" required>
                         </div>
                         <div class="modal-footer">
                             <button type="button" id="editTaskForm-closeButton" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
