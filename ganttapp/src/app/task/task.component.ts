@@ -1,11 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { forkJoin } from 'rxjs';
 import { Link } from '../object/link';
 import { Task } from '../object/task';
-import { DiagramService } from '../services/diagram.service';
 import { LinkService } from '../services/link.service';
+import { PertDiagramService } from '../services/pert.diagram.service';
 import { TaskService } from '../services/task.service';
 
 @Component({
@@ -17,7 +17,7 @@ export class TaskComponent implements OnInit {
   public task = <Task>{};
   public link = <Link>{};
 
-  constructor(private taskService: TaskService, private linkService: LinkService, private diagramService: DiagramService) { }
+  constructor(private taskService: TaskService, private linkService: LinkService, private diagramService: PertDiagramService) { }
 
   ngOnInit(): void {
     this.diagramService.initDiagram();
