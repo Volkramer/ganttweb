@@ -20,7 +20,7 @@ stages:          # List of stages for jobs, and their order of execution
 
 build-job:       # This job runs in the build stage, which runs first.
   stage: build
-  image: eclipse-temurin:18-jdk-alpine
+  image: maven:3.8.6-openjdk-18
   script:
     - echo "Compiling the code..."
     - "mvn -B compile"
