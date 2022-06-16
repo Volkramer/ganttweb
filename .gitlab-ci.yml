@@ -20,7 +20,7 @@ stages:          # List of stages for jobs, and their order of execution
 
 build-job:       # This job runs in the build stage, which runs first.
   stage: build
-  image: maven:latest
+  image: maven:3.8.5
   script:
     - echo "Compiling the code..."
     - "mvn -B compile"
