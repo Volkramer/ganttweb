@@ -60,10 +60,11 @@ public class PertLogic {
         }
     }
 
-    private void printTask(Task task) {
-        System.out.println("ID: " + task.getId() + ", NAME: " + task.getName() + ", START ASAP: " + task.getStartAsap()
-                + ", DURATION: " + task.getDuration() + ", END ASAP:" + task.getEndAsap());
-    }
+    // private void printTask(Task task) {
+    // System.out.println("ID: " + task.getId() + ", NAME: " + task.getName() + ",
+    // START ASAP: " + task.getStartAsap()
+    // + ", DURATION: " + task.getDuration() + ", END ASAP:" + task.getEndAsap());
+    // }
 
     private int calculateStartAsap(Task fromTask, Task task) {
         int startAsap = fromTask.getEndAsap();
@@ -137,24 +138,26 @@ public class PertLogic {
         return sortedTasks;
     }
 
-    private void printTestSort(List<Task> poolTasks, List<Link> poolLinks, List<Task> sortedTasks) {
-        System.out.print("CONTENU DE LA POOLTASKS:\n");
-        poolTasks.forEach((Task task) -> {
-            System.out.println("ID: " + task.getId() + ", NAME: " + task.getName());
-        });
-        System.out.println("\n");
-        System.out.print("CONTENU DE LA POOLLINKS:\n");
-        poolLinks.forEach((Link link) -> {
-            System.out.println(
-                    "ID: " + link.getId() + " FROM TASK: " + link.getFromTask() + " TO TASK: " + link.getToTask()
-                            + ", ");
-        });
-        System.out.println("\n");
-        System.out.print("CONTENU DE LA SORTEDTASKS:\n");
-        sortedTasks.forEach((Task task) -> {
-            System.out.println("ID: " + task.getId() + ", NAME: " + task.getName());
-        });
-        System.out
-                .println("<----------------------------------------------------------------------------------->\n");
-    }
+    // private void printTestSort(List<Task> poolTasks, List<Link> poolLinks,
+    // List<Task> sortedTasks) {
+    // System.out.print("CONTENU DE LA POOLTASKS:\n");
+    // poolTasks.forEach((Task task) -> {
+    // System.out.println("ID: " + task.getId() + ", NAME: " + task.getName());
+    // });
+    // System.out.println("\n");
+    // System.out.print("CONTENU DE LA POOLLINKS:\n");
+    // poolLinks.forEach((Link link) -> {
+    // System.out.println(
+    // "ID: " + link.getId() + " FROM TASK: " + link.getFromTask() + " TO TASK: " +
+    // link.getToTask()
+    // + ", ");
+    // });
+    // System.out.println("\n");
+    // System.out.print("CONTENU DE LA SORTEDTASKS:\n");
+    // sortedTasks.forEach((Task task) -> {
+    // System.out.println("ID: " + task.getId() + ", NAME: " + task.getName());
+    // });
+    // System.out
+    // .println("<----------------------------------------------------------------------------------->\n");
+    // }
 }
