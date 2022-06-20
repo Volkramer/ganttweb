@@ -12,6 +12,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>gantt</name>
     <description>gantt project</description>
+    <packaging>war</packaging>
     <properties>
         <java.version>18</java.version>
     </properties>
@@ -50,6 +51,27 @@
                 <configuration>
                     <source>18</source>
                     <target>18</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <url>http://localhost:8800/manager/text</url>
+                    <server>Tomcat</server>
+                    <update>true</update>
+                    <!-- <path></path> -->
+                    <!-- user robot (def in tomcat-users.xml) -->
+                    <username>robot</username>
+                    <password>robot</password>
+                    <!-- TODO: maven server in settings.xml with ssh key as in:
+            <server>
+              <id>siteServer</id>
+              <privateKey>/path/to/private/key</privateKey>
+              <passphrase>optional; leave empty if not used.</passphrase>
+            </server>
+          -->
                 </configuration>
             </plugin>
         </plugins>
