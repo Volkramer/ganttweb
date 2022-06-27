@@ -12,10 +12,27 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>gantt</name>
     <description>gantt project</description>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>18</java.version>
+        <start-class>volk.gantt.GanttApplication</start-class>
     </properties>
+    <!-- <distributionManagement>
+        <repository>
+            <id>gitlab-maven</id>
+            <url>https://gitlab.com/api/v4/projects/36971448/packages/maven</url>
+        </repository>
+        <snapshotRepository>
+            <id>gitlab-maven</id>
+            <url>https://gitlab.com/api/v4/projects/36971448/packages/maven</url>
+        </snapshotRepository>
+    </distributionManagement> -->
+    <!-- <scm>
+        <developerConnection>scm:git:git@gitlab.com/idformationdevops/ganttweb.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm> -->
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -25,7 +42,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -52,6 +68,11 @@
                     <source>18</source>
                     <target>18</target>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.3</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
