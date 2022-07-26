@@ -17,8 +17,6 @@ public class Task implements Serializable {
     @Column(nullable = false, updatable = true)
     private String name;
     @Column(nullable = false, updatable = true)
-    private int nbr;
-    @Column(nullable = false, updatable = true)
     private int duration;
     private int marginTotal;
     private int marginFree;
@@ -31,11 +29,15 @@ public class Task implements Serializable {
         super();
     }
 
-    public Task(String name, int nbr, int duration) {
+    public Task(String name, int duration) {
         this.name = name;
-        this.nbr = nbr;
         this.duration = duration;
         this.startAsap = 0;
+        this.endAsap = 0;
+        this.marginFree = 0;
+        this.marginTotal = 0;
+        this.endLatest = 0;
+        this.startLatest = 0;
     }
 
     public int getId() {
@@ -52,14 +54,6 @@ public class Task implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getNbr() {
-        return nbr;
-    }
-
-    public void setNbr(int nbr) {
-        this.nbr = nbr;
     }
 
     public int getDuration() {

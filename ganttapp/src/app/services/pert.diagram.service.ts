@@ -6,12 +6,12 @@ const $ = go.GraphObject.make;
 @Injectable({
   providedIn: 'root'
 })
-export class DiagramService {
+export class PertDiagramService {
   private blue = "#0288D1";
   private pink = "#B71C1C";
   private pinkfill = "#F8BBD0";
   private bluefill = "#B3E5FC";
-  public diagram: go.Diagram = new go.Diagram;
+  public diagram: go.Diagram = new go.Diagram();
   public state = {
     diagramNodeData: new Array(),
     diagramLinkData: new Array(),
@@ -34,7 +34,7 @@ export class DiagramService {
     this.state.diagramNodeData = [];
     this.state.diagramLinkData = [];
     dataNodes.forEach(node => {
-      this.state.diagramNodeData.push({ key: node.id, nbr: node.nbr, name: node.name, length: node.duration, earlyStart: node.startAsap, lateStart: node.startLatest, earlyFinish: node.endAsap, lateFinish: node.endLatest, slack: node.marginTotal, critical: false });
+      this.state.diagramNodeData.push({ key: node.id, name: node.name, length: node.duration, earlyStart: node.startAsap, lateStart: node.startLatest, earlyFinish: node.endAsap, lateFinish: node.endLatest, slack: node.marginTotal, critical: false });
     });
     dataLinks.forEach(link => {
       this.state.diagramLinkData.push({ key: link.id, from: link.fromTask, to: link.toTask });
