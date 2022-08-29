@@ -27,25 +27,16 @@ export class TaskComponent implements OnInit {
         const key = part.key
         if (typeof key === "number") {
           if (this.diagramService.isLink(part)) {
-            this.linkService.deleteLink(key).subscribe({
-              next: () => { this.getTasks() },
-              error: (error: HttpErrorResponse) => { alert(error.message) }
-            });
+            this.deleteLink(key);
           }
           if (this.diagramService.isNode(part)) {
             const node = this.diagramService.diagram.findNodeForKey(part.key);
             node?.findLinksConnected().each(link => {
               if (typeof link.key === "number") {
-                this.linkService.deleteLink(link.key).subscribe({
-                  next: () => { this.getTasks() },
-                  error: (error: HttpErrorResponse) => { alert(error.message) }
-                })
+                this.deleteLink(link.key);
               }
             });
-            this.taskService.deleteTask(key).subscribe({
-              next: () => { this.getTasks() },
-              error: (error: HttpErrorResponse) => { alert(error.message) }
-            })
+            this.deleteTask(key);
           }
         }
       });
@@ -135,14 +126,14 @@ export class TaskComponent implements OnInit {
     })
   }
 
-  public getTask(id: number): void {
+  private getTask(id: number): void {
     this.taskService.getTaskById(id).subscribe({
       next: (data: Task) => { this.task = data },
       error: (error: HttpErrorResponse) => { alert(error.message) }
     })
   }
 
-  public getTasks(): void {
+  private getTasks(): void {
     forkJoin({
       dataNode: this.taskService.getTasks(),
       dataLink: this.linkService.getLinks()
@@ -154,5 +145,19 @@ export class TaskComponent implements OnInit {
         },
         error: (error: HttpErrorResponse) => { alert(error.message) }
       });
+  }
+
+  private deleteTask(key: number) {
+    this.taskService.deleteTask(key).subscribe({
+      next: () => { this.getTasks(); },
+      error: (error: HttpErrorResponse) => { alert(error.message); }
+    });
+  }
+
+  private deleteLink(key: number) {
+    this.linkService.deleteLink(key).subscribe({
+      next: () => { this.getTasks(); },
+      error: (error: HttpErrorResponse) => { alert(error.message); }
+    });
   }
 }

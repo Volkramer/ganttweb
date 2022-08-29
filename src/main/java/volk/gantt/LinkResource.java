@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import volk.gantt.model.Link;
 import volk.gantt.service.LinkService;
+import volk.gantt.service.PertLogicService;
 import volk.gantt.service.TaskService;
 
 @CrossOrigin
@@ -47,7 +48,7 @@ public class LinkResource {
     @PostMapping("/add")
     public ResponseEntity<Link> addLink(@RequestBody Link link) {
         Link newLink = linkService.addLink(link);
-        PertLogic pert = new PertLogic(this.taskService, this.linkService);
+        PertLogicService pert = new PertLogicService(this.taskService, this.linkService);
         pert.calculatePert();
         return new ResponseEntity<>(newLink, HttpStatus.CREATED);
     }
@@ -61,7 +62,7 @@ public class LinkResource {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Link> deleteLink(@PathVariable("id") Integer id) {
         linkService.deleteLink(id);
-        PertLogic pert = new PertLogic(this.taskService, this.linkService);
+        PertLogicService pert = new PertLogicService(this.taskService, this.linkService);
         pert.calculatePert();
         return new ResponseEntity<>(HttpStatus.OK);
     }

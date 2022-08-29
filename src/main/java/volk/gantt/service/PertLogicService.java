@@ -1,4 +1,4 @@
-package volk.gantt;
+package volk.gantt.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,10 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import volk.gantt.model.Link;
 import volk.gantt.model.Task;
-import volk.gantt.service.LinkService;
-import volk.gantt.service.TaskService;
 
-public class PertLogic {
+public class PertLogicService {
 
     private List<Link> links;
     private List<Task> tasks;
@@ -19,7 +17,7 @@ public class PertLogic {
     private final LinkService linkService;
 
     @Autowired
-    public PertLogic(TaskService taskService, LinkService linkService) {
+    public PertLogicService(TaskService taskService, LinkService linkService) {
         this.taskService = taskService;
         this.linkService = linkService;
     }
