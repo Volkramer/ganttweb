@@ -1,50 +1,113 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.6.7</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
-	<groupId>volk</groupId>
-	<artifactId>gantt</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>gantt</name>
-	<description>gantt project</description>
-	<properties>
-		<java.version>18</java.version>
-	</properties>
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.6.7</version>
+        <relativePath /> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>volk</groupId>
+    <artifactId>gantt</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>gantt</name>
+    <description>gantt project</description>
+    <packaging>jar</packaging>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>18</java.version>
+        <start-class>volk.gantt.GanttApplication</start-class>
+    </properties>
+    <!-- <distributionManagement>
+        <repository>
+            <id>gitlab-maven</id>
+            <url>https://gitlab.com/api/v4/projects/36971448/packages/maven</url>
+        </repository>
+        <snapshotRepository>
+            <id>gitlab-maven</id>
+            <url>https://gitlab.com/api/v4/projects/36971448/packages/maven</url>
+        </snapshotRepository>
+    </distributionManagement> -->
+    <!-- <scm>
+        <developerConnection>scm:git:git@gitlab.com/idformationdevops/ganttweb.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm> -->
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <!-- use 2.9.1 for Java 7 projects -->
+            <version>3.23.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>18</source>
+                    <target>18</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.3</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <url>http://localhost:8800/manager/text</url>
+                    <server>Tomcat</server>
+                    <update>true</update>
+                    <!-- <path></path> -->
+                    <!-- user robot (def in tomcat-users.xml) -->
+                    <username>robot</username>
+                    <password>robot</password>
+                    <!-- TODO: maven server in settings.xml with ssh key as in:
+            <server>
+              <id>siteServer</id>
+              <privateKey>/path/to/private/key</privateKey>
+              <passphrase>optional; leave empty if not used.</passphrase>
+            </server>
+          -->
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
