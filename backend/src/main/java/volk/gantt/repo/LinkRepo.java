@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 import volk.gantt.model.Link;
 
 @Repository
-public interface LinkRepo extends JpaRepository<Link, Integer> {
-    void deleteLinkById(Integer id);
+public interface LinkRepo extends JpaRepository<Link, Long> {
+    void deleteLinkById(Long id);
 
-    Optional<Link> findLinkById(Integer id);
+    Optional<Link> findLinkById(Long id);
 }

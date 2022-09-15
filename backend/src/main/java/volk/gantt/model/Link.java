@@ -13,42 +13,42 @@ public class Link implements Serializable {
     @Id
     @GeneratedValue
     @Column(nullable = false, updatable = false)
-    private int id;
+    private Long id;
     @Column(nullable = false, updatable = false)
-    private int fromTask;
+    private Long fromTask;
     @Column(nullable = false, updatable = false)
-    private int toTask;
+    private Long toTask;
 
     public Link() {
         super();
     }
 
-    public Link(int fromTask, int toTask) {
+    public Link(Long fromTask, Long toTask) {
         this.fromTask = fromTask;
         this.toTask = toTask;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public int getFromTask() {
+    public Long getFromTask() {
         return fromTask;
     }
 
-    public void setFromTask(int fromTask) {
+    public void setFromTask(Long fromTask) {
         this.fromTask = fromTask;
     }
 
-    public int getToTask() {
+    public Long getToTask() {
         return toTask;
     }
 
-    public void setToTask(int toTask) {
+    public void setToTask(Long toTask) {
         this.toTask = toTask;
     }
 

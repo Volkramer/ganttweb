@@ -40,7 +40,7 @@ public class TaskResource {
     }
 
     @GetMapping("/find/{id}")
-    public ResponseEntity<Task> getTaskById(@PathVariable("id") Integer id) {
+    public ResponseEntity<Task> getTaskById(@PathVariable("id") Long id) {
         Task task = taskService.findTaskById(id);
         return new ResponseEntity<>(task, HttpStatus.OK);
     }
@@ -60,7 +60,7 @@ public class TaskResource {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Task> deleteTask(@PathVariable("id") Integer id) {
+    public ResponseEntity<Task> deleteTask(@PathVariable("id") Long id) {
         taskService.deleteTask(id);
         PertLogicService pert = new PertLogicService(this.taskService, this.linkService);
         pert.calculatePert();

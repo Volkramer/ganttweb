@@ -31,13 +31,13 @@ public class TaskService {
         return taskRepo.save(task);
     }
 
-    public Task findTaskById(Integer id) {
+    public Task findTaskById(Long id) {
         return taskRepo.findTaskById(id)
                 .orElseThrow(() -> new TaskNotFoundException("Task by id " + id + " was not found"));
     }
 
     @Transactional
-    public void deleteTask(Integer id) {
+    public void deleteTask(Long id) {
         taskRepo.deleteTaskById(id);
     }
 

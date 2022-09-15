@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 import volk.gantt.model.Task;
 
 @Repository
-public interface TaskRepo extends JpaRepository<Task, Integer> {
-    void deleteTaskById(Integer id);
+public interface TaskRepo extends JpaRepository<Task, Long> {
+    void deleteTaskById(Long id);
 
-    Optional<Task> findTaskById(Integer id);
+    Optional<Task> findTaskById(Long id);
 }

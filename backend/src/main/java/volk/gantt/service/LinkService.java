@@ -31,13 +31,13 @@ public class LinkService {
         return linkRepo.save(link);
     }
 
-    public Link findLinkById(Integer id) {
+    public Link findLinkById(Long id) {
         return linkRepo.findLinkById(id)
                 .orElseThrow(() -> new LinkNotFoundException("Link by id " + id + " was not found"));
     }
 
     @Transactional
-    public void deleteLink(Integer id) {
+    public void deleteLink(Long id) {
         linkRepo.deleteById(id);
     }
 

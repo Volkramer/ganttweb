@@ -13,7 +13,7 @@ public class Task implements Serializable {
     @Id
     @GeneratedValue
     @Column(nullable = false, updatable = false)
-    private int id;
+    private Long id;
     @Column(nullable = false, updatable = true)
     private String name;
     @Column(nullable = false, updatable = true)
@@ -40,11 +40,11 @@ public class Task implements Serializable {
         this.startLatest = 0;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
