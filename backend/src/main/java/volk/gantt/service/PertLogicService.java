@@ -13,14 +13,12 @@ public class PertLogicService {
 
     private List<Link> links;
     private List<Task> tasks;
-    private final TaskService taskService;
-    private final LinkService linkService;
-
+    
     @Autowired
-    public PertLogicService(TaskService taskService, LinkService linkService) {
-        this.taskService = taskService;
-        this.linkService = linkService;
-    }
+    private TaskService taskService;
+    
+    @Autowired
+    private LinkService linkService;
 
     public void calculatePert() {
         List<Task> sortedTasks = new ArrayList<Task>();

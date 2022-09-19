@@ -1,6 +1,7 @@
 package volk.gantt;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.notNullValue;
 
 import org.junit.jupiter.api.Test;
@@ -26,6 +27,6 @@ public class RoleRepoTests {
         Role savedRole = roleRepo.save(newRole);
 
         assertThat(savedRole, notNullValue());
-        //assertThat(0, );
+        assertThat(savedRole.getId().intValue(), greaterThan(0));
     }
 }

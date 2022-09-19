@@ -1,4 +1,4 @@
-package volk.gantt;
+package volk.gantt.api;
 
 import java.util.List;
 
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import volk.gantt.model.Task;
-import volk.gantt.service.LinkService;
 import volk.gantt.service.PertLogicService;
 import volk.gantt.service.TaskService;
 
@@ -24,14 +23,9 @@ import volk.gantt.service.TaskService;
 @RestController
 @RequestMapping("/task")
 public class TaskResource {
-    private final TaskService taskService;
-    private final LinkService linkService;
-
+    
     @Autowired
-    public TaskResource(TaskService taskService, LinkService linkService) {
-        this.taskService = taskService;
-        this.linkService = linkService;
-    }
+    private TaskService taskService;
 
     @GetMapping("/all")
     public ResponseEntity<List<Task>> getAllTasks() {
@@ -54,7 +48,7 @@ public class TaskResource {
     @PutMapping("/update")
     public ResponseEntity<Task> updateTask(@RequestBody Task task) {
         Task updateTask = taskService.updateTask(task);
-        PertLogicService pert = new PertLogicService(this.taskService, this.linkService);
+        PertLogicService pert = new PertLogicService();
         pert.calculatePert();
         return new ResponseEntity<>(updateTask, HttpStatus.OK);
     }
@@ -62,7 +56,7 @@ public class TaskResource {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Task> deleteTask(@PathVariable("id") Long id) {
         taskService.deleteTask(id);
-        PertLogicService pert = new PertLogicService(this.taskService, this.linkService);
+        PertLogicService pert = new PertLogicService();
         pert.calculatePert();
         return new ResponseEntity<>(HttpStatus.OK);
     }

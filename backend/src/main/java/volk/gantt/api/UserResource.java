@@ -1,4 +1,4 @@
-package volk.gantt;
+package volk.gantt.api;
 
 import java.util.List;
 
@@ -23,12 +23,8 @@ import volk.gantt.service.UserService;
 @RequestMapping("/user")
 public class UserResource {
     
-    private final UserService userService;
-    
     @Autowired
-    public UserResource(UserService userService) {
-        this.userService = userService;
-    }
+    private UserService userService;
 
     @GetMapping("/all")
     public ResponseEntity<List<User>> getAllUsers() {

@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import volk.gantt.exception.UserNotFoundException;
 import volk.gantt.model.User;
 import volk.gantt.repo.UserRepo;
 
@@ -36,7 +37,8 @@ public class UserService {
     }
 
     public User findUserByUsername(String username) {
-        return userRepo.findByUsername(username);
+        return userRepo.findByUsername(username)
+        .orElseThrow(() -> new UserNotFoundException("User with username" + username + "not found"));
     }
 
     @Transactional

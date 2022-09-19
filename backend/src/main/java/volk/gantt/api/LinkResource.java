@@ -1,4 +1,4 @@
-package volk.gantt;
+package volk.gantt.api;
 
 import java.util.List;
 
@@ -18,20 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 import volk.gantt.model.Link;
 import volk.gantt.service.LinkService;
 import volk.gantt.service.PertLogicService;
-import volk.gantt.service.TaskService;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/link")
 public class LinkResource {
-    private final LinkService linkService;
-    private final TaskService taskService;
-
+    
     @Autowired
-    public LinkResource(LinkService linkService, TaskService taskService) {
-        this.linkService = linkService;
-        this.taskService = taskService;
-    }
+    private LinkService linkService;
 
     @GetMapping("/all")
     public ResponseEntity<List<Link>> getAllLinks() {
@@ -48,7 +42,7 @@ public class LinkResource {
     @PostMapping("/add")
     public ResponseEntity<Link> addLink(@RequestBody Link link) {
         Link newLink = linkService.addLink(link);
-        PertLogicService pert = new PertLogicService(this.taskService, this.linkService);
+        PertLogicService pert = new PertLogicService();
         pert.calculatePert();
         return new ResponseEntity<>(newLink, HttpStatus.CREATED);
     }
@@ -62,7 +56,7 @@ public class LinkResource {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Link> deleteLink(@PathVariable("id") Long id) {
         linkService.deleteLink(id);
-        PertLogicService pert = new PertLogicService(this.taskService, this.linkService);
+        PertLogicService pert = new PertLogicService();
         pert.calculatePert();
         return new ResponseEntity<>(HttpStatus.OK);
     }
