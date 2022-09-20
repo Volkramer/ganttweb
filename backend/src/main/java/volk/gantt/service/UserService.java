@@ -5,6 +5,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import volk.gantt.exception.UserNotFoundException;
@@ -21,7 +22,10 @@ public class UserService {
     }
 
     public User addUser(User user) {
-        return userRepo.save(user);
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String password = passwordEncoder.encode(user.getPassword());
+        User newUser = new User(user.getUsername(), password);
+        return userRepo.save(newUser);
     }
 
     public List<User> findAllUsers() {

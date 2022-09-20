@@ -28,7 +28,7 @@ public class UserRepoTests {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String password = passwordEncoder.encode("kodiak2022");
 
-        User newUser = new User("test", password);
+        User newUser = new User("usernamefortest", password);
         User savedUser = userRepo.save(newUser);
 
         assertThat(savedUser, notNullValue());
